@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pódio Jetz Animado</title>
+    <style>
+        /* Configuração de transparência total */
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container que agrupa os 3 troféus */
+        .podium-container {
+            display: flex;
+            gap: 40px; /* Espaço entre os troféus */
+            align-items: flex-end; /* Alinha pela base */
+            padding-bottom: 20px;
+        }
+
+        /* Estrutura base dos troféus (usando SVG para não perder qualidade) */
+        .trophy {
+            position: relative;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            /* Combinação de Animações: Flutuar, Pulsar e Brilhar */
+            animation: 
+                float 3s ease-in-out infinite, 
+                pulse 2s ease-in-out infinite, 
+                brilho 4s linear infinite;
+        }
+
+        /* 1º Lugar - OURO (Centralizado e maior) */
+        .gold {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="%23FFD700" d="M552 64H448V24c0-13.3-10.7-24-24-24H152c-13.3 0-24 10.7-24 24v40H24C10.7 64 0 74.7 0 88v128c0 35.3 28.7 64 64 64h10.3c15.2 60.1 63.8 106.8 125.7 111.4V448h-48c-17.7 0-32 14.3-32 32 0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32 0-17.7-14.3-32-32-32h-48v-56.6c61.9-4.6 110.5-51.3 125.7-111.4H512c35.3 0 64-28.7 64-64V88c0-13.3-10.7-24-24-24zM112.7 224H64V128h48.7c-3.1 19.3-4.7 38.9-4.7 64 0 11.2.6 22 1.7 32zm350.6 0c1.1-10 1.7-20.8 1.7-32 0-25.1-1.6-44.7-4.7-64H512v96h-48.7z"/></svg>');
+            width: 100px;
+            height: 120px;
+            order: 2; /* Fica no meio */
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+        }
+
+        /* 2º Lugar - PRATA */
+        .silver {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="%23C0C0C0" d="M552 64H448V24c0-13.3-10.7-24-24-24H152c-13.3 0-24 10.7-24 24v40H24C10.7 64 0 74.7 0 88v128c0 35.3 28.7 64 64 64h10.3c15.2 60.1 63.8 106.8 125.7 111.4V448h-48c-17.7 0-32 14.3-32 32 0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32 0-17.7-14.3-32-32-32h-48v-56.6c61.9-4.6 110.5-51.3 125.7-111.4H512c35.3 0 64-28.7 64-64V88c0-13.3-10.7-24-24-24zM112.7 224H64V128h48.7c-3.1 19.3-4.7 38.9-4.7 64 0 11.2.6 22 1.7 32zm350.6 0c1.1-10 1.7-20.8 1.7-32 0-25.1-1.6-44.7-4.7-64H512v96h-48.7z"/></svg>');
+            width: 80px;
+            height: 100px;
+            order: 1; /* Esquerda */
+            animation-delay: 0.5s; /* Desincroniza para dar ritmo */
+            filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.4));
+        }
+
+        /* 3º Lugar - BRONZE */
+        .bronze {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="%23CD7F32" d="M552 64H448V24c0-13.3-10.7-24-24-24H152c-13.3 0-24 10.7-24 24v40H24C10.7 64 0 74.7 0 88v128c0 35.3 28.7 64 64 64h10.3c15.2 60.1 63.8 106.8 125.7 111.4V448h-48c-17.7 0-32 14.3-32 32 0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32 0-17.7-14.3-32-32-32h-48v-56.6c61.9-4.6 110.5-51.3 125.7-111.4H512c35.3 0 64-28.7 64-64V88c0-13.3-10.7-24-24-24zM112.7 224H64V128h48.7c-3.1 19.3-4.7 38.9-4.7 64 0 11.2.6 22 1.7 32zm350.6 0c1.1-10 1.7-20.8 1.7-32 0-25.1-1.6-44.7-4.7-64H512v96h-48.7z"/></svg>');
+            width: 80px;
+            height: 100px;
+            order: 3; /* Direita */
+            animation-delay: 1s;
+            filter: drop-shadow(0 0 10px rgba(205, 127, 50, 0.4));
+        }
+
+        /* --- ANIMAÇÕES --- */
+
+        /* 1. Flutuar (Sobe e desce) */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* 2. Pulsar (Aumenta e diminui levemente) */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* 3. Brilho (Efeito de cintilação metálica) */
+        @keyframes brilho {
+            0%, 100% { filter: brightness(1) contrast(1.2); }
+            50% { filter: brightness(1.4) contrast(1.5) drop-shadow(0 0 25px rgba(255,255,255,0.8)); }
+        }
+
+        /* Efeito de Interação: Ao passar o mouse, o troféu ganha destaque total */
+        .trophy:hover {
+            cursor: pointer;
+            animation-play-state: paused; /* Para de flutuar para focar */
+            transform: scale(1.3);
+            filter: brightness(1.6) drop-shadow(0 0 30px white);
+            transition: 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="podium-container">
+        <div class="trophy silver"></div>
+        <div class="trophy gold"></div>
+        <div class="trophy bronze"></div>
+    </div>
+
+</body>
+</html>
