@@ -1,0 +1,45 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="1" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.5" />
+    </linearGradient>
+    <style>
+      .circuit-path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw 6s infinite ease-in-out;
+      }
+      .pulse {
+        animation: pulse-anim 2s infinite;
+      }
+      @keyframes draw {
+        0% { stroke-dashoffset: 1000; opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 0; }
+      }
+      @keyframes pulse-anim {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.3); opacity: 1; }
+      }
+    </style>
+  </defs>
+
+  <g opacity="0.3">
+    <path class="circuit-path" d="M 50 50 L 150 50 L 150 150 L 250 150" stroke="url(#circuitGradient)" stroke-width="2" fill="none" />
+    <circle class="pulse" cx="150" cy="50" r="4" fill="#ea580c" />
+    <circle class="pulse" cx="150" cy="150" r="4" fill="#ea580c" />
+    <circle class="pulse" cx="250" cy="150" r="3" fill="#ea580c" />
+  </g>
+
+  <g opacity="0.3">
+    <path class="circuit-path" d="M 1870 80 L 1720 80 L 1720 200" stroke="url(#circuitGradient)" stroke-width="2" fill="none" style="animation-delay: 1s;"/>
+    <rect x="1710" y="70" width="20" height="20" fill="none" stroke="#ea580c" stroke-width="2" />
+  </g>
+
+  <g opacity="0.3">
+    <path class="circuit-path" d="M 1820 1030 L 1820 900 L 1670 900" stroke="url(#circuitGradient)" stroke-width="2" fill="none" style="animation-delay: 2s;"/>
+    <circle class="pulse" cx="1820" cy="900" r="4" fill="#ea580c" />
+  </g>
+</svg>
