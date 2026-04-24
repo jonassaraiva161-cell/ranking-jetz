@@ -1,265 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Circuits</title>
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body {
-    width: 100%; height: 100%;
-    background: transparent;
-    overflow: hidden;
+  body { margin: 0; background: #000; overflow: hidden; }
+  .circuit-container {
+    position: fixed;
+    inset: 0;
+    opacity: 0.3; /* Ajustado para melhor visibilidade */
+    pointer-events: none;
+  }
+  
+  path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 5s linear infinite;
   }
 
-  canvas {
-    display: block;
-    width: 100%; height: 100%;
-    background: transparent;
+  @keyframes draw {
+    0% { stroke-dashoffset: 1000; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+
+  .dot {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.5); opacity: 1; }
   }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<script>
-const canvas = document.getElementById('c');
-const ctx = canvas.getContext('2d');
 
-function resize() {
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
+<div class="circuit-container">
+  <svg width="100%" height="100%" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ea580c" />
+        <stop offset="100%" stop-color="#f97316" />
+      </linearGradient>
+    </defs>
 
-/* ── Palette ── */
-const COLORS = [
-  '#00F5FF', // cyan
-  '#00FF9F', // green
-  '#BF5FFF', // purple
-  '#FF2D78', // pink
-  '#FFD700', // gold
-];
+    <path d="M 50 50 L 150 50 L 150 150 L 250 150" stroke="url(#g)" stroke-width="2" fill="none" />
+    <circle class="dot" cx="250" cy="150" r="4" fill="#ea580c" />
+    
+    </svg>
+</div>
 
-/* ── Circuit node system ── */
-class Node {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    this.r = 2 + Math.random() * 2.5;
-    this.pulseT = Math.random() * Math.PI * 2;
-    this.speed  = .015 + Math.random() * .025;
-  }
-}
-
-/* ── Pulse dot traveling along a path ── */
-class Pulse {
-  constructor(path, color) {
-    this.path  = path;   // array of {x,y}
-    this.color = color;
-    this.t     = 0;
-    this.speed = .004 + Math.random() * .006;
-    this.size  = 3 + Math.random() * 2;
-    this.alive = true;
-  }
-  update() {
-    this.t += this.speed;
-    if (this.t >= 1) this.alive = false;
-  }
-  getPos() {
-    const seg = this.path.length - 1;
-    const ft  = this.t * seg;
-    const i   = Math.min(Math.floor(ft), seg - 1);
-    const s   = ft - i;
-    const a   = this.path[i], b = this.path[i + 1];
-    return { x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s };
-  }
-  draw() {
-    const p = this.getPos();
-    ctx.save();
-    ctx.shadowBlur  = 18;
-    ctx.shadowColor = this.color;
-    ctx.fillStyle   = '#fff';
-    ctx.globalAlpha = .9;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-    // inner core
-    ctx.fillStyle = this.color;
-    ctx.globalAlpha = 1;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, this.size * .5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-/* ── Circuit path ── */
-class Circuit {
-  constructor() { this.build(); }
-  build() {
-    this.color   = COLORS[Math.floor(Math.random() * COLORS.length)];
-    this.opacity = .25 + Math.random() * .45;
-    this.width   = .6 + Math.random() * 1.2;
-    // Random L-shaped / stepped circuit path (only 90° turns)
-    const steps = 3 + Math.floor(Math.random() * 4);
-    const path  = [];
-    let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height;
-    path.push({x, y});
-    let dir = Math.random() < .5 ? 'h' : 'v';
-    for (let i = 0; i < steps; i++) {
-      const len = 40 + Math.random() * 180;
-      if (dir === 'h') x += (Math.random() < .5 ? 1 : -1) * len;
-      else              y += (Math.random() < .5 ? 1 : -1) * len;
-      path.push({x, y});
-      dir = dir === 'h' ? 'v' : 'h';
-    }
-    this.path    = path;
-    this.pulses  = [];
-    this.nextPulse = 60 + Math.random() * 120;
-    this.tick    = 0;
-    this.life    = 300 + Math.random() * 400;
-    this.age     = 0;
-    this.drawLen = 0;               // animated draw-in
-    this.totalLen = this._totalLen();
-  }
-  _totalLen() {
-    let l = 0;
-    for (let i = 1; i < this.path.length; i++) {
-      const a = this.path[i-1], b = this.path[i];
-      l += Math.hypot(b.x - a.x, b.y - a.y);
-    }
-    return l;
-  }
-  update() {
-    this.age++;
-    // draw-in animation
-    if (this.drawLen < this.totalLen) this.drawLen += this.totalLen / 40;
-    // pulse spawning
-    this.tick++;
-    if (this.tick >= this.nextPulse) {
-      this.pulses.push(new Pulse(this.path, this.color));
-      this.nextPulse = 80 + Math.random() * 140;
-      this.tick = 0;
-    }
-    this.pulses = this.pulses.filter(p => p.alive);
-    this.pulses.forEach(p => p.update());
-  }
-  draw() {
-    if (this.path.length < 2) return;
-    const fadeIn  = Math.min(1, this.age / 40);
-    const fadeOut = this.age > this.life - 60 ? (this.life - this.age) / 60 : 1;
-    const alpha   = this.opacity * fadeIn * fadeOut;
-
-    ctx.save();
-    ctx.strokeStyle = this.color;
-    ctx.lineWidth   = this.width;
-    ctx.lineCap     = 'square';
-    ctx.shadowBlur  = 10;
-    ctx.shadowColor = this.color;
-    ctx.globalAlpha = alpha;
-
-    // draw only up to drawLen
-    let rem = this.drawLen;
-    ctx.beginPath();
-    ctx.moveTo(this.path[0].x, this.path[0].y);
-    for (let i = 1; i < this.path.length && rem > 0; i++) {
-      const a = this.path[i-1], b = this.path[i];
-      const segLen = Math.hypot(b.x - a.x, b.y - a.y);
-      if (rem >= segLen) {
-        ctx.lineTo(b.x, b.y);
-        rem -= segLen;
-      } else {
-        const t = rem / segLen;
-        ctx.lineTo(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
-        rem = 0;
-      }
-    }
-    ctx.stroke();
-
-    // nodes at corners
-    this.path.forEach((p, i) => {
-      if (i === 0 || i === this.path.length - 1) {
-        ctx.shadowBlur  = 16;
-        ctx.fillStyle   = this.color;
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-        // outer ring
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth   = .8;
-        ctx.globalAlpha = alpha * .5;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-    });
-    ctx.restore();
-
-    // pulses
-    this.pulses.forEach(p => p.draw());
-  }
-  get dead() { return this.age > this.life; }
-}
-
-/* ── Floating nodes ── */
-const nodes = Array.from({length: 18}, () => new Node());
-
-function drawNodes() {
-  nodes.forEach(n => {
-    n.pulseT += n.speed;
-    const pulse = .5 + .5 * Math.sin(n.pulseT);
-    ctx.save();
-    ctx.shadowBlur  = 14 * pulse;
-    ctx.shadowColor = n.color;
-    ctx.fillStyle   = n.color;
-    ctx.globalAlpha = .3 + .5 * pulse;
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r * (.8 + .4 * pulse), 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  });
-}
-
-/* ── Circuit manager ── */
-let circuits = [];
-const MAX_CIRCUITS = 14;
-
-function spawnCircuit() {
-  if (circuits.length < MAX_CIRCUITS) circuits.push(new Circuit());
-}
-for (let i = 0; i < 8; i++) circuits.push(new Circuit());
-setInterval(spawnCircuit, 600);
-
-/* ── Scan line ── */
-let scanY = 0;
-function drawScan() {
-  scanY = (scanY + .4) % canvas.height;
-  const grad = ctx.createLinearGradient(0, scanY - 40, 0, scanY + 4);
-  grad.addColorStop(0, 'rgba(0,245,255,0)');
-  grad.addColorStop(1, 'rgba(0,245,255,0.03)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, scanY - 40, canvas.width, 44);
-}
-
-/* ── Main loop ── */
-function loop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  drawScan();
-  drawNodes();
-
-  circuits = circuits.filter(c => !c.dead);
-  circuits.forEach(c => { c.update(); c.draw(); });
-
-  requestAnimationFrame(loop);
-}
-loop();
-</script>
 </body>
 </html>
