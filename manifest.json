@@ -9,8 +9,8 @@
       "name": "Ranking Animado",
       "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
       "resource": {
-        "js": "https://SUA-URL.vercel.app/index.js",
-        "config": "https://SUA-URL.vercel.app/index.json"
+        "js": "https://ranking-jetz.vercel.app/index.js",
+        "config": "https://ranking-jetz.vercel.app/index.json"
       }
     }
   ]
