@@ -1,7 +1,7 @@
 {
   "name": "Ranking Jetz",
   "organization": "Jetz Internet",
-  "description": "Ranking de vendas Jetz",
+  "description": "Ranking de vendas animado.",
   "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
   "components": [
     {
@@ -9,8 +9,8 @@
       "name": "Ranking Animado",
       "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
       "resource": {
-        "js": "https://raw.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.js",
-        "config": "https://raw.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.json"
+        "js": "https://SUA-URL.vercel.app/index.js",
+        "config": "https://SUA-URL.vercel.app/index.json"
       }
     }
   ]
