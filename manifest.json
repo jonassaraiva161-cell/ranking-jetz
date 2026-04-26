@@ -1,7 +1,7 @@
 {
-  "name": "Ranking Jetz Vendas",
+  "name": "Ranking Jetz",
   "organization": "Jetz Internet",
-  "description": "Ranking de vendas para Paragominas, Ulianópolis e Dom Eliseu.",
+  "description": "Ranking de vendas Jetz",
   "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
   "components": [
     {
