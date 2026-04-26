@@ -1,0 +1,17 @@
+{
+  "name": "Ranking Animado Jetz",
+  "organization": "Jetz Internet",
+  "description": "Ranking de vendas com fotos e animações.",
+  "logoUrl": "https://raw.githubusercontent.com/seu-usuario/seu-repo/main/icon.png",
+  "components": [
+    {
+      "id": "rankingAnimado",
+      "name": "Ranking Animado",
+      "iconUrl": "https://raw.githubusercontent.com/seu-usuario/seu-repo/main/icon.png",
+      "resource": {
+        "js": "index.js",
+        "config": "index.json"
+      }
+    }
+  ]
+}
