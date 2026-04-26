@@ -1,16 +1,16 @@
 {
-  "name": "Ranking Animado Jetz",
+  "name": "Ranking Jetz Vendas",
   "organization": "Jetz Internet",
-  "description": "Ranking de vendas animado.",
-  "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/icon.png",
+  "description": "Ranking de vendas para Paragominas, Ulianópolis e Dom Eliseu.",
+  "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
   "components": [
     {
       "id": "rankingAnimado",
       "name": "Ranking Animado",
-      "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/icon.png",
+      "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
       "resource": {
-        "js": "https://rawcdn.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.js",
-        "config": "https://rawcdn.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.json"
+        "js": "https://raw.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.js",
+        "config": "https://raw.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.json"
       }
     }
   ]
