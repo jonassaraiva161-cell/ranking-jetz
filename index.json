@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": "mainMetric",
+      "label": "Dados do Vendedor",
+      "elements": [
+        {
+          "id": "nome",
+          "label": "Nome do Vendedor",
+          "type": "DIMENSION"
+        },
+        {
+          "id": "foto",
+          "label": "URL da Foto",
+          "type": "DIMENSION"
+        },
+        {
+          "id": "vendas",
+          "label": "Valor de Vendas",
+          "type": "METRIC"
+        }
+      ]
+    }
+  ],
+  "style": []
+}
