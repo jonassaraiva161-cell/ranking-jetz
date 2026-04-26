@@ -1,0 +1,53 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="background:transparent">
+  <defs>
+    <filter id="super_glow_solido" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blurCore"/>
+      <feGaussianBlur stdDeviation="8" result="blurAura"/>
+      <feGaussianBlur stdDeviation="20" result="blurExplosion"/>
+      
+      <feMerge>
+        <feMergeNode in="blurExplosion"/>
+        <feMergeNode in="blurAura"/>
+        <feMergeNode in="blurCore"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="ouro_macico" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /> <stop offset="50%" style="stop-color:#FFFACD;stop-opacity:1" /> <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    /* Animação Pulsante Sólida e Profissional */
+    @keyframes pulsar_absoluto {
+      0%, 100% { 
+        stroke-width: 25; /* Muito grosso e sólido */
+        filter: url(#super_glow_solido) brightness(1.1);
+        opacity: 1;
+      }
+      50% { 
+        stroke-width: 30; /* Expande para Solidez Máxima */
+        filter: url(#super_glow_solido) brightness(1.6);
+        opacity: 0.95; /* Leve variação p/ dinâmica */
+      }
+    }
+
+    .anel_gloria {
+      fill: none;
+      stroke: url(#ouro_macico);
+      stroke-width: 25; /* Base super grossa */
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#super_glow_solido);
+      transform-origin: center;
+      animation: pulsar_absoluto 4s ease-in-out infinite;
+    }
+  </style>
+
+  <g>
+    <circle class="anel_gloria" cx="300" cy="300" r="230" />
+    
+    <circle cx="300" cy="300" r="230" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6" filter="blur(1px)" />
+  </g>
+</svg>
