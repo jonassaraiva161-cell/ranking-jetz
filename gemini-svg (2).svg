@@ -1,0 +1,45 @@
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" style="background:transparent">
+  <style>
+    .trilha {
+      fill: none;
+      stroke: #FF6A00;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: flow 10s linear infinite;
+    }
+    .ponto { fill: #FF6A00; opacity: 0; animation: blink 10s linear infinite; }
+    
+    @keyframes flow {
+      0% { stroke-dashoffset: 1000; opacity: 0; }
+      5% { opacity: 1; }
+      40%, 60% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: -1000; opacity: 0; }
+    }
+    @keyframes blink {
+      0%, 35% { opacity: 0; }
+      40%, 60% { opacity: 1; }
+      70%, 100% { opacity: 0; }
+    }
+  </style>
+
+  <path class="trilha" d="M0,200 L400,200 L450,250 L900,250" style="animation-delay:0s"/>
+  <circle class="ponto" cx="900" cy="250" r="6" style="animation-delay:0s"/>
+  
+  <path class="trilha" d="M0,500 L300,500 L350,550 L900,550" style="animation-delay:2s"/>
+  <circle class="ponto" cx="900" cy="550" r="6" style="animation-delay:2s"/>
+
+  <path class="trilha" d="M0,800 L500,800 L550,750 L900,750" style="animation-delay:1s"/>
+  <circle class="ponto" cx="900" cy="750" r="6" style="animation-delay:1s"/>
+
+  <path class="trilha" d="M1920,200 L1520,200 L1470,250 L1020,250" style="animation-delay:0.5s"/>
+  <circle class="ponto" cx="1020" cy="250" r="6" style="animation-delay:0.5s"/>
+  
+  <path class="trilha" d="M1920,500 L1620,500 L1570,550 L1020,550" style="animation-delay:2.5s"/>
+  <circle class="ponto" cx="1020" cy="550" r="6" style="animation-delay:2.5s"/>
+
+  <path class="trilha" d="M1920,800 L1420,800 L1370,750 L1020,750" style="animation-delay:1.5s"/>
+  <circle class="ponto" cx="1020" cy="750" r="6" style="animation-delay:1.5s"/>
+</svg>
