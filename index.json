@@ -1,26 +1,49 @@
 {
   "data": [
     {
-      "id": "mainMetric",
-      "label": "Dados do Vendedor",
+      "id": "avatar",
+      "label": "Avatar",
       "elements": [
         {
-          "id": "nome",
-          "label": "Nome do Vendedor",
           "type": "DIMENSION"
-        },
+        }
+      ]
+    },
+    {
+      "id": "vendedor",
+      "label": "Vendedor",
+      "elements": [
         {
-          "id": "foto",
-          "label": "URL da Foto",
           "type": "DIMENSION"
-        },
+        }
+      ]
+    },
+    {
+      "id": "cidade",
+      "label": "Cidade",
+      "elements": [
         {
-          "id": "vendas",
-          "label": "Valor de Vendas",
+          "type": "DIMENSION"
+        }
+      ]
+    },
+    {
+      "id": "pontuacao",
+      "label": "Pontuação",
+      "elements": [
+        {
+          "type": "METRIC"
+        }
+      ]
+    },
+    {
+      "id": "clientes",
+      "label": "Clientes",
+      "elements": [
+        {
           "type": "METRIC"
         }
       ]
     }
-  ],
-  "style": []
+  ]
 }
