@@ -1,13 +1,11 @@
 {
   "name": "Ranking Jetz",
   "organization": "Jetz Internet",
-  "description": "Ranking de vendas animado.",
-  "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
+  "description": "Ranking de Vendas",
   "components": [
     {
       "id": "rankingAnimado",
       "name": "Ranking Animado",
-      "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/gemini-svg%20(2).svg",
       "resource": {
         "js": "https://ranking-jetz.vercel.app/index.js",
         "config": "https://ranking-jetz.vercel.app/index.json"
