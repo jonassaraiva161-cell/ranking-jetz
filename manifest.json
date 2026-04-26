@@ -1,13 +1,16 @@
 {
   "name": "Ranking Animado Jetz",
   "organization": "Jetz Internet",
+  "description": "Ranking de vendas animado.",
+  "logoUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/icon.png",
   "components": [
     {
       "id": "rankingAnimado",
       "name": "Ranking Animado",
+      "iconUrl": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/icon.png",
       "resource": {
-        "js": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/index.js",
-        "config": "https://raw.githubusercontent.com/jonassaraiva161-cell/ranking-jetz/main/index.json"
+        "js": "https://rawcdn.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.js",
+        "config": "https://rawcdn.githack.com/jonassaraiva161-cell/ranking-jetz/main/index.json"
       }
     }
   ]
