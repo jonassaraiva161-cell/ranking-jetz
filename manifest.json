@@ -1,11 +1,17 @@
 {
   "name": "Ranking Jetz",
+  "description": "Ranking de vendedores personalizado",
+  "logoUrl": "https://ranking-jetz.vercel.app/logo.png",
   "organization": "Jetz Internet",
-  "description": "Ranking de Vendas",
+  "supportUrl": "https://ranking-jetz.vercel.app",
+  "packageUrl": "https://ranking-jetz.vercel.app",
+  "devMode": true,
   "components": [
     {
-      "id": "rankingAnimado",
-      "name": "Ranking Animado",
+      "id": "rankingViz",
+      "name": "Ranking Jetz",
+      "description": "Visualização de ranking",
+      "iconUrl": "https://ranking-jetz.vercel.app/logo.png",
       "resource": {
         "js": "https://ranking-jetz.vercel.app/index.js",
         "config": "https://ranking-jetz.vercel.app/index.json"
